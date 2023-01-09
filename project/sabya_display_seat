@@ -1,0 +1,19 @@
+def display_seats(seats):
+  # Determine the number of rows and columns in the seat chart
+  rows = len(seats)
+  cols = len(seats[0])
+
+  # Print the seat chart row by row
+  for row in seats:
+    # Print the left group of seats
+    for seat in row[:cols//2]:
+      print(seat, end=' ')
+    # Print the aisle
+    print('| |', end=' ')
+    # Print the right group of seats
+    for seat in row[cols//2:]:
+      print(seat, end=' ')
+    # Print a newline at the end of each row
+    print()
+    
+# work on the occupied seat
