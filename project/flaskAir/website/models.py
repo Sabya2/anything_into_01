@@ -19,3 +19,14 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     notes = db.relationship('Note')
+
+  
+'''
+class Seat(db.Model):
+    """
+    currently not working, only as a template to implement a class for seats
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    seatID = db.Column(db.String(10), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # relation of seat instance to user
+'''
