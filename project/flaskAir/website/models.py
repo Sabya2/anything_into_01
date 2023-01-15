@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
 '''
 class Seat(db.Model):
     """
-    currently not working, only as a template to implement a class for seats
+    currently not working, only as a template to TODO:implement a class for seats
     """
     id = db.Column(db.Integer, primary_key=True)
     seatID = db.Column(db.String(10), unique=True)
