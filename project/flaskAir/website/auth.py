@@ -5,6 +5,8 @@ from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
 
+'''defines routes for "login", "signup", "logout" and functionality for AUTHENTICATION'''
+
 auth = Blueprint('auth', __name__)
 
 
