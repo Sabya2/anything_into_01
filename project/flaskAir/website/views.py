@@ -23,6 +23,10 @@ def home():
     return render_template("home.html", user=current_user)
 
 
+@views.route('/help')
+def help():
+    return render_template('help.html', user=current_user)
+
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
