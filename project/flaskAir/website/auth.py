@@ -72,3 +72,12 @@ def logout():
     flash('Logged out! Have a nice day :3', category='success')
     logout_user()
     return redirect(url_for('auth.login'))
+
+
+'''Hacky version of admin access :( This is not ready yet!'''
+@auth.route('/admin')
+@login_required
+def adminpanel():
+    if not current_user.is_admin:
+        flash("This area is for admins only.", category='error')
+        return redirect(url_for('home'))
