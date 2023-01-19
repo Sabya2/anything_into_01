@@ -36,6 +36,8 @@ def helppage():
 
 
 '''This is old funcionality from the tutorial (techwithtim)'''
+
+
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
