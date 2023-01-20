@@ -30,11 +30,6 @@ def home():
     return render_template("home.html", user=current_user)
 
 
-@views.route('/help')  # default methods = GET only
-def helppage():
-    return render_template('helppage.html', user=current_user)
-
-
 '''This is old funcionality from the tutorial (techwithtim)'''
 
 
