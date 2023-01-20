@@ -49,3 +49,7 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+@views.route('/help')
+def help():
+    return render_template("help.html", user=current_user)
