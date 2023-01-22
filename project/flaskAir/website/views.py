@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Note
 from . import db
 import json
 
@@ -14,24 +13,15 @@ views = Blueprint('views', __name__)  # load in views as flask blueprint
 @login_required
 def home():
     """
-    This should maybe include only the personal info of current_user?
-    Or all seats idk
+    TODO: change to include personal info of current_user OR directly go to 'reserve Seats' view!
     """
-    if request.method == 'POST':
-        note = request.form.get('note')
-        if len(note) < 1:
-            flash('Note is too short', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
 
     return render_template("home.html", user=current_user)
 
 
-'''This is old funcionality from the tutorial (techwithtim)'''
 
+''' 
+TODO: Take this as an example how functionality in Flask can be constructed with jsonify
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
@@ -44,7 +34,7 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
-
+'''
 @views.route('/help')
 def help():
     return render_template("help.html", user=current_user)
