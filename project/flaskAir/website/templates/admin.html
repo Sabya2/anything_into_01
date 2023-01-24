@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Adminpage {% endblock %}
+
+{% block content%}
+    <h1> all your seats are belong to us! </h1>
+    <p>all seats: {{ all_seats|length }}  free seats: {{ free_seats|length }}
+    <button onclick="export2file">export</button>
+    </p>
+
+
+    {% for user in all_users %}
+        <p>
+            <strong>name:</strong> {{user.firstname}} {{user.lastname}}
+            <strong>ID:</strong> {{user.id}}
+            <ul>
+                email: {{user.email}}
+            </ul>
+            <ul>
+                seats booked:
+                {% for seat in user.seat %}
+                    <li class="list-group-item"> {{ seat }}
+                        <button type="button" class="close" onclick="cancel_seat({{ seat.user_id }})">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type='submit' name="cancel Reservation" onclick="cancel_all_seats">
+                cancel all seats
+            </button>
+        </p>
+
+        <br />
+    {% endfor %}
+
+{% endblock %}
