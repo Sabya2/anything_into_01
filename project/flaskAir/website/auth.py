@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Seat
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -7,7 +7,28 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 '''defines routes for "login", "signup", "logout" and functionality for AUTHENTICATION'''
 
+# create Blueprint for auth
 auth = Blueprint('auth', __name__)
+
+
+@auth.route('/admin', methods=['GET', 'POST'], strict_slashes=False)
+@login_required
+def admin():
+    if request.method == 'GET':
+        if current_user.is_admin:
+            return render_template('admin.html',
+                                   user=current_user,
+                                   all_users=User.query.all(),
+                                   all_seats=Seat.query.all(),
+                                   free_seats=Seat.query.filter_by(user_id=None).all())
+            # renders admin page and passes all users and all seat objects
+        else:
+            flash("This area is for admins only.", category='error')
+            return redirect(url_for('views.home'))
+    if request.method == 'POST':
+        # functionality here?
+        flash("admin accessed with POST", category='success')
+        return redirect(url_for('auth.admin'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -20,7 +41,7 @@ def login():
         if user:
             if check_password_hash(user.password, login_password):
                 flash('Logged in successfully!', category='success')
-                login_user(user, remember=True)
+                login_user(user, remember=False)
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password.', category='error')
@@ -72,15 +93,3 @@ def logout():
     flash('Logged out! Have a nice day :3', category='success')
     logout_user()
     return redirect(url_for('auth.login'))
-
-
-'''
-Hacky version of admin access :( This is not ready yet!
-TODO: sort out access to admin panel!
-'''
-@auth.route('/admin')
-@login_required
-def admin():
-    if not current_user.is_admin:
-        flash("This area is for admins only.", category='error')
-        return redirect(url_for('views.home'))
