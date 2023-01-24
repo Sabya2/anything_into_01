@@ -6,7 +6,8 @@ import json
 
 '''defines routes for "home", "help" and functionality for the website itself'''
 
-views = Blueprint('views', __name__)  # load in views as flask blueprint
+# create Blueprint for views
+views = Blueprint('views', __name__)
 
 
 @views.route('/', methods=['GET', 'POST'])
