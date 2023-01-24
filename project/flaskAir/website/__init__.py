@@ -1,9 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
-
+from sqlalchemy.exc import NoResultFound
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -11,21 +9,31 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = '6799c2d3-f338-4915-afc6-f73457a4c408'
+    # set secret key
+    app.config['SECRET_KEY'] = 'secretlol'
+    # set path for sqlite3 database
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # disable track mod record and suppress warnings about possible overhead
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # initialise
     db.init_app(app)
 
+    # import routes/functions from auth and views
     from .views import views
     from .auth import auth
 
+    # register Blueprints created in auth and views
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Role, Seat, roles_users
+    # import models for database
+    from .models import User, Seat
 
+    # create all necessary tables from the models within the app context
     with app.app_context():
         db.create_all()
 
+    # setup login manager from flask-login
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -34,9 +42,17 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-    admin = Admin(app)
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Role, db.session))
-    admin.add_view(ModelView(Seat, db.session))
+    @app.before_request
+    def create_admin():
+        adminmail = 'lion@wolf.com'
+        try:
+            admin = db.session.execute(db.select(User).filter_by(email=adminmail)).scalar_one()
+            if admin:
+                # set is_admin flag to true if email == lion@wolf.com
+                admin.is_admin = True
+                db.session.commit()
+        except NoResultFound:
+            pass
+        
 
     return app
