@@ -42,6 +42,8 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
+    # implement the 4 standarduser
+
     @app.before_request
     def create_admin():
         adminmail = 'lion@wolf.com'
@@ -53,6 +55,25 @@ def create_app():
                 db.session.commit()
         except NoResultFound:
             pass
-        
+
+
+    '''
+    @app.before_request
+    def create_seats():
+        if already seats in db:
+            skip
+        else:
+            with open(chartln.txt, "r") as seatlayout:
+                read in every row as a line
+                for every row in the seat layout:
+                    for every seat in row:
+                        if seat == 'X':
+                            new_seat = Seat(seat_name=seat, user_id=0)
+                            db.session.add(new_seat)
+                        else:
+                            new_seat = Seat(set_name=seat, user_id=None)
+                            db.session.add(new_seat)
+            db.session.commit()
+       '''
 
     return app

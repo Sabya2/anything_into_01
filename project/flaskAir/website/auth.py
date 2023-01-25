@@ -27,7 +27,7 @@ def admin():
             return redirect(url_for('views.home'))
     if request.method == 'POST':
         # functionality here?
-        flash("admin accessed with POST", category='success')
+        flash("admin accessed with POST")
         return redirect(url_for('auth.admin'))
 
 
@@ -77,7 +77,8 @@ def signup():
             new_user = User(email=email,
                             firstname=firstname,
                             lastname=lastname,
-                            password=generate_password_hash(password, method='sha256'))
+                            password=generate_password_hash(password, method='sha256'),
+                            is_admin=False)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
