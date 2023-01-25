@@ -33,7 +33,7 @@ def export2file():
             if number_all_seats != 0:
                 seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t seats: {number_all_seats}\t{(number_free_seats / number_all_seats) * 100} % available\n")
             else:
-                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t all seats: {number_all_seats}")
+                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t all seats: {number_all_seats}\n")
             flash('sucessfully written seatinfo', category='success')
 
         return render_template("admin.html", user=current_user, all_seats=all_seats, free_seats=free_seats, all_users=all_users)
