@@ -22,12 +22,13 @@ def home():
 
 @views.route('/export2file', methods=['POST'])
 def export2file():
-    all_users = User.query.all()
-    all_seats = Seat.query.all()
-    free_seats = Seat.query.filter_by(user_id=None).all()
-    number_all_seats = len(all_seats)
-    number_free_seats = len(free_seats)
     if current_user.is_admin:
+        all_users = User.query.all()
+        all_seats = Seat.query.all()
+        free_seats = Seat.query.filter_by(user_id=None).all()
+        number_all_seats = len(all_seats)
+        number_free_seats = len(free_seats)
+    
         with open('./seatinfo.txt', 'a+') as seatinfo:
             timeinfo = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             if number_all_seats != 0:
