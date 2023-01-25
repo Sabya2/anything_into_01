@@ -44,21 +44,14 @@ def export2file():
         return redirect(url_for('views.home'))
 
 
-''' 
-TODO: Take this as an example how functionality in Flask can be constructed with jsonify
+@views.route("/cancel_seat", methods=["POST"])
+def cancel_seat():
+    pass
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
 
-    return jsonify({})
-'''
+@views.route("/cancel_all_seats", methods=["POST"])
+def cancel_all_seats():
+    pass
 
 
 @views.route('/help')
