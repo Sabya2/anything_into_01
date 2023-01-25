@@ -4,7 +4,7 @@
 {% block content%}
     <h1> all your seats are belong to us! </h1>
     <p>all seats: {{ all_seats|length }}  free seats: {{ free_seats|length }}
-    <button onclick="export2file">export</button>
+    <button onclick="export2file({{all_seats, free_seats}})">export</button>
     </p>
 
 
