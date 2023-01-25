@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_login import login_required, current_user
 from datetime import datetime
 from .models import User, Seat
+from . import db
 
 
 '''defines routes for "home", "help" and functionality for the website itself'''
@@ -46,12 +47,28 @@ def export2file():
 
 @views.route("/cancel_seat", methods=["POST"])
 def cancel_seat():
-    pass
+    seat2cancel = Seat.query.filter_by(id=request.form['cancel_seat']).first()
+    seat2cancel.user_id = None
+    db.session.commit()
+
+    all_users = User.query.all()
+    all_seats = Seat.query.all()
+    free_seats = Seat.query.filter_by(user_id=None).all()
+    return render_template("admin.html", user=current_user, all_seats=all_seats, free_seats=free_seats, all_users=all_users)
 
 
 @views.route("/cancel_all_seats", methods=["POST"])
 def cancel_all_seats():
-    pass
+    user_id = request.form['cancel_all_seats']
+    seats2cancel = Seat.query.filter_by(user_id=user_id).all()
+    for seat in seats2cancel:
+        seat.user_id = None
+    db.session.commit()
+
+    all_users = User.query.all()
+    all_seats = Seat.query.all()
+    free_seats = Seat.query.filter_by(user_id=None).all()
+    return render_template("admin.html", user=current_user, all_seats=all_seats, free_seats=free_seats, all_users=all_users)
 
 
 @views.route('/help')

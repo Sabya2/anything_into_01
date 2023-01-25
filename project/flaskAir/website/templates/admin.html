@@ -14,23 +14,20 @@
         <p>
             <strong>name:</strong> {{user.firstname}} {{user.lastname}}
             <strong>ID:</strong> {{user.id}}
-            <ul>
-                email: {{user.email}}
-            </ul>
+            <strong> email:</strong> {{user.email}}
             <ul>
                 seats booked:
-                {% for seat in user.seat %}
-                <!-- TODO: This has to be reimplemented! user.seat does not exist!-->
-                    <li class="list-group-item"> {{ seat }}
-                        <button type="button" class="close" onclick="cancel_seat({{ seat.id }})">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                {% for seat in all_seats if seat.user_id == user.id %} <!-- display all seats that the user has booked -->
+                    <li class="list-group-item"> {{ seat.seat_name }}
+                        <form action="/cancel_seat" method="POST">
+                            <button type="submit" name="cancel_seat" value={{seat.id}} onclick="cancel_seat()">x</button>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
-            <button type='submit' name="cancel Reservation" onclick="cancel_all_seats()">
-                cancel all seats
-            </button>
+            <form action="/cancel_all_seats" method="POST">
+                <button type='submit' name="cancel_all_seats" value={{user.id}} onclick="cancel_all_seats()">cancel all seats</button>
+            </form>
         </p>
 
         <br />

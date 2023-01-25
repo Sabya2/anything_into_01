@@ -42,7 +42,7 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-    # implement the 4 standarduser
+    # TODO: implement the 4 standardusers?? pw would be written in plain...
 
     @app.before_request
     def create_admin():
@@ -56,6 +56,17 @@ def create_app():
         except NoResultFound:
             pass
 
+    @app.before_request
+    def create_testseat():  # TODO: delete when seat import works!
+        try:
+            testseat = db.session.execute(db.select(Seat).filter_by(seat_name='0Z')).scalar_one()
+            if testseat:
+                testseat.user_id = 1
+
+        except NoResultFound:
+            testseat = Seat(seat_name='0Z', user_id=1)
+            db.session.add(testseat)
+            db.session.commit()
 
     '''
     @app.before_request

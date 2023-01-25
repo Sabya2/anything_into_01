@@ -1,1 +1,6 @@
-25/01/2023 17:01:16:	 seats available: 0	 all seats: 0
+25/01/2023 17:01:16:	 seats available: 0	 all seats: 025/01/2023 18:30:48:	 seats available: 0	 seats: 1	0.0 % available
+25/01/2023 18:33:29:	 seats available: 0	 seats: 1	0.0 % available
+25/01/2023 19:24:35:	 seats available: 0	 seats: 1	0.0 % available
+25/01/2023 19:24:41:	 seats available: 0	 seats: 1	0.0 % available
+25/01/2023 19:31:14:	 seats available: 0	 seats: 1	0.0 % available
+25/01/2023 19:31:27:	 seats available: 0	 seats: 1	0.0 % available
