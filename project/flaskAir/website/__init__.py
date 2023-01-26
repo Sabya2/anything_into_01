@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy.exc import NoResultFound
 
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
@@ -29,10 +30,6 @@ def create_app():
     # import models for database
     from .models import User, Seat
 
-    # create all necessary tables from the models within the app context
-    with app.app_context():
-        db.create_all()
-
     # setup login manager from flask-login
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -44,7 +41,28 @@ def create_app():
 
     # TODO: implement the 4 standardusers?? pw would be written in plain...
 
-    @app.before_request
+    # create all necessary tables from the models within the app context, create seats from layout and create admin account
+    with app.app_context():
+        db.create_all()
+
+
+
+
+    ''' This function is not needed when readinSeats() is executed! TODO: delete/comment out
+        
+        def create_testseat():  # TODO: delete when seat import works!
+            """This function is called in app.context to create a testseat mapped to the admin account"""
+            try:
+                testseat = db.session.execute(db.select(Seat).filter_by(seat_name='0Z')).scalar_one()
+                if testseat:
+                    testseat.user_id = 1
+    
+            except NoResultFound:
+                testseat = Seat(seat_name='0Z', user_id=1)
+                db.session.add(testseat)
+                db.session.commit()
+    '''
+
     def create_admin():
         adminmail = 'lion@wolf.com'
         try:
@@ -54,37 +72,41 @@ def create_app():
                 admin.is_admin = True
                 db.session.commit()
         except NoResultFound:
+            print("no admin found.")
             pass
 
-    @app.before_request
-    def create_testseat():  # TODO: delete when seat import works!
+    def create_seats():
         try:
-            testseat = db.session.execute(db.select(Seat).filter_by(seat_name='0Z')).scalar_one()
-            if testseat:
-                testseat.user_id = 1
+            implemented_seats = db.session.execute(db.select(Seat)).scalars()
+            if implemented_seats:
+                print("passing the create_seats function")
+                pass
 
         except NoResultFound:
-            testseat = Seat(seat_name='0Z', user_id=1)
-            db.session.add(testseat)
-            db.session.commit()
+            with open('chartIn.txt', 'r') as seats_file:
+                seats_document = seats_file.readlines()
+                seats = [line.split() for line in seats_document]
 
-    '''
-    @app.before_request
-    def create_seats():
-        if already seats in db:
-            skip
-        else:
-            with open(chartln.txt, "r") as seatlayout:
-                read in every row as a line
-                for every row in the seat layout:
-                    for every seat in row:
-                        if seat == 'X':
-                            new_seat = Seat(seat_name=seat, user_id=0)
-                            db.session.add(new_seat)
-                        else:
-                            new_seat = Seat(set_name=seat, user_id=None)
-                            db.session.add(new_seat)
+            n_cols = len(seats[0])
+            n_rows = len(seats) - 1
+
+            seatnames = []
+            for i in range(1, n_rows + 1):
+                for letter in seats[0]:
+                    seatnames.append(str(i) + letter)
+
+            seatvalues = []
+            for row in seats[1:]:
+                for seat in row[1:]:
+                    if seat == 'X':
+                        seatvalues.append(0)
+                    else:
+                        seatvalues.append(None)
+
+            for i in range(len(seatnames)):
+                new_seat = Seat(seat_name=seatnames[i], user_id=seatvalues[i])
+                db.session.add(new_seat)
             db.session.commit()
-       '''
 
     return app
+
