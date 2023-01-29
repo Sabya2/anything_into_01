@@ -99,14 +99,14 @@ def create_app():
         create_admin()
 
     ''' This function is not needed when readinSeats() is executed! TODO: delete/comment out
-        
+
         def create_testseat():  # TODO: delete when seat import works!
             """This function is called in app.context to create a testseat mapped to the admin account"""
             try:
                 testseat = db.session.execute(db.select(Seat).filter_by(seat_name='0Z')).scalar_one()
                 if testseat:
                     testseat.user_id = 1
-    
+
             except NoResultFound:
                 testseat = Seat(seat_name='0Z', user_id=1)
                 db.session.add(testseat)

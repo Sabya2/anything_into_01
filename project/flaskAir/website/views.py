@@ -28,8 +28,12 @@ def reservation():
         all_seats = Seat.query.all()
         return render_template("reservation.html", user=current_user, all_seats=all_seats)
     if request.method == 'POST':
-        pass
-        # redirect 2 /reserve_seats
+        for seat_id in request.form.getlist('selected_seats'):
+            seat = Seat.query.filter_by(id=seat_id).first()
+            seat.user_id = current_user.id
+            db.session.commit()
+        all_seats = Seat.query.all()
+        return render_template("reservation.html", user=current_user, all_seats=all_seats)
         # take all seat id and set these seats seat.user_id to current_user.id
         # db.session.commit()
 
@@ -41,7 +45,7 @@ def export2file():
         free_seats = Seat.query.filter_by(user_id=None).all()
         number_all_seats = len(all_seats)
         number_free_seats = len(free_seats)
-    
+
         with open('./seatinfo.txt', 'a+') as seatinfo:
             timeinfo = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             if number_all_seats != 0:
