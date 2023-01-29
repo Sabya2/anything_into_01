@@ -29,6 +29,7 @@ def reservation():
         return render_template("reservation.html", user=current_user, all_seats=all_seats)
     if request.method == 'POST':
         pass
+        # redirect 2 /reserve_seats
         # take all seat id and set these seats seat.user_id to current_user.id
         # db.session.commit()
 
