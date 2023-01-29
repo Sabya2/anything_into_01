@@ -20,6 +20,17 @@ def home():
 
     return render_template("home.html", user=current_user)
 
+@views.route('/reservation', methods=['GET', 'POST'])
+@login_required
+def reservation():
+    """logic for reservation panel"""
+    if request.method == 'GET':
+        all_seats = Seat.query.all()
+        return render_template("reservation.html", user=current_user, all_seats=all_seats)
+    if request.method == 'POST':
+        pass
+        # take all seat id and set these seats seat.user_id to current_user.id
+        # db.session.commit()
 
 @views.route('/export2file', methods=['POST'])
 def export2file():
@@ -33,7 +44,7 @@ def export2file():
         with open('./seatinfo.txt', 'a+') as seatinfo:
             timeinfo = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             if number_all_seats != 0:
-                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t seats: {number_all_seats}\t{(number_free_seats / number_all_seats) * 100} % available\n")
+                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t seats: {number_all_seats}\t{round((number_free_seats / number_all_seats) * 100, 2)} % available\n")
             else:
                 seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t all seats: {number_all_seats}\n")
             flash('sucessfully written seatinfo', category='success')

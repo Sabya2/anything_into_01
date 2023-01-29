@@ -13,3 +13,7 @@
 26/01/2023 14:13:45:	 seats available: 240	 seats: 241	99.5850622406639 % available
 26/01/2023 15:56:18:	 seats available: 60	 seats: 60	100.0 % available
 26/01/2023 16:15:07:	 seats available: 0	 all seats: 0
+29/01/2023 10:42:30:	 seats available: 0	 all seats: 0
+29/01/2023 11:17:36:	 seats available: 57	 seats: 60	95.0 % available
+29/01/2023 11:20:05:	 seats available: 57	 seats: 60	95.0 % available
+29/01/2023 16:23:26:	 seats available: 57	 seats: 60	95.0 % available

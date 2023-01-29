@@ -17,7 +17,7 @@
         />
 
         <title>{% block title %}Home{% endblock %}</title>
-
+        {% block style %} {% endblock %}
     </head>
 
     <body>
@@ -34,6 +34,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="logout" href="/logout">Logout</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" id="reservation" href="/reservation">Reservation</a>
                     </li>
                     {% else %}
                     <li class="nav-item">

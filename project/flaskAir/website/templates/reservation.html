@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} Reservation {% endblock %}
+
+{% block style%}
+    <style>
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(6, auto);
+        /*background-color: #2196F3;*/
+      }
+      .grid-item {
+        background-color: #d3d3d3;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 5px;
+        font-size: 20px;
+        text-align: center;
+        height: 50px;
+      }
+
+      .selected {
+        background-color: #7FFFD4;
+      }
+    </style>
+
+{% endblock %}
+{% block content %}
+<h2>Get your seats here!</h2>
+    <div class="grid-container">
+      {% for seat in all_seats %}
+        {% if seat.user_id == None %}
+            <div class="grid-item" onclick="this.classList.toggle('selected')"> {{seat.seat_name}} </div>
+        {% else %}
+            <div background-color="#a9a9a9" class="grid-item"> {{seat.seat_name}} </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <br style="clear: both;" />
+    <input type="submit" value="Submit">
+
+{% endblock %}
