@@ -11,7 +11,7 @@ from . import db
 views = Blueprint('views', __name__)
 
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/', methods=['GET'])
 @login_required
 def home():
     booked_seats = [seat.seat_name for seat in Seat.query.all() if seat.user_id == current_user.id]
