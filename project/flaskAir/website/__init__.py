@@ -27,11 +27,13 @@ def create_admin():
 
 def create_seats():
     try:
-        implemented_seats = db.session.execute(db.select(Seat)).scalars()
-        if implemented_seats:
-            # print("passing the create_seats function")
+        implemented_seats = db.session.execute(db.select(Seat)).all()
+        # print(implemented_seats)
+        if len(implemented_seats) > 0:
+            print("passing the create_seats function")
             pass
-
+        else:
+            raise NoResultFound
     except NoResultFound:
         print("creating seats")
         with open('chartIn.txt', 'r') as seats_file:
