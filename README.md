@@ -1,8 +1,8 @@
-#Airline Reservation System flaskAir
+# Airline Reservation System flaskAir
 
 This project uses flask as a python framework to build a web-based booking system for airplane seats for learning purposes.
 
-##Installation
+## Installation
 These are the steps necessary to execute this project on your local machine. Based on your operating system you may need to change these commands.
 
 1. clone the github repository to your local machine
@@ -22,16 +22,16 @@ These are the steps necessary to execute this project on your local machine. Bas
 `python -m main.py`
 (note: on Mac you will need to use python with the command `python3`)
 
-##Who did what
-###Marie Jamroszczyk:
+## Who did what
+### Marie Jamroszczyk:
 planing phase (exploration of flask and other posiblities)
 help page - routing, functionality and html
 
-###Íñigo Vicente-Hernández:
+### Íñigo Vicente-Hernández:
 create seats - routing, functionality, html
 database stuff
 
-###Lion Wolf:
+### Lion Wolf:
 Flask
 homepage - routing, functionality and html
 Login, Logout, Signup - routing, functionality and html
