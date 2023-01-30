@@ -9,6 +9,7 @@ DB_NAME = "database.db"
 
 from .models import User, Seat
 
+
 def create_admin():
     print("create_admin")
     adminmail = 'lion@wolf.com'
@@ -92,28 +93,11 @@ def create_app():
 
     # TODO: implement the 4 standardusers?? pw would be written in plain...
 
-    # create all necessary tables from the models within the app context, create seats from layout and create admin account
+    # create all necessary tables from the models within the app context,
+    # create seats from layout and create admin account
     with app.app_context():
         db.create_all()
         create_seats()
         create_admin()
 
-    ''' This function is not needed when readinSeats() is executed! TODO: delete/comment out
-
-        def create_testseat():  # TODO: delete when seat import works!
-            """This function is called in app.context to create a testseat mapped to the admin account"""
-            try:
-                testseat = db.session.execute(db.select(Seat).filter_by(seat_name='0Z')).scalar_one()
-                if testseat:
-                    testseat.user_id = 1
-
-            except NoResultFound:
-                testseat = Seat(seat_name='0Z', user_id=1)
-                db.session.add(testseat)
-                db.session.commit()
-    '''
-
-
-
     return app
-
