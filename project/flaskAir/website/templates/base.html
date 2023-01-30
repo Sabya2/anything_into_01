@@ -32,22 +32,19 @@
                     <li class="nav-item active">
                         <a class="nav-link" id="home" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="logout" href="/logout">Logout</a>
-                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" id="reservation" href="/reservation">Reservation</a>
                     </li>
                     {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" id="login" href="/login">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" id="signup" href="/signup">Sign Up</a>
                     </li>
                     {% endif %}
                     {% if current_user.is_admin %}
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" id="admin" href="/admin">Adminpanel</a>
                     </li>
                     {% endif %}
@@ -55,6 +52,11 @@
             </div>
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="logout" href="/logout">Logout</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" id="help" href="/help">Help</a>
                     </li>
