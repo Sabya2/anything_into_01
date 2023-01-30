@@ -14,11 +14,10 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    """
-    TODO: change to include personal info of current_user OR directly go to 'reserve Seats' view!
-    """
+    booked_seats = [seat.seat_name for seat in Seat.query.all() if seat.user_id == current_user.id]
+    booked_seats = ', '.join(booked_seats)
+    return render_template("home.html", user=current_user, booked_seats=booked_seats)
 
-    return render_template("home.html", user=current_user)
 
 @views.route('/reservation', methods=['GET', 'POST'])
 @login_required
@@ -28,14 +27,18 @@ def reservation():
         all_seats = Seat.query.all()
         return render_template("reservation.html", user=current_user, all_seats=all_seats)
     if request.method == 'POST':
+        currently_booking = []
         for seat_id in request.form.getlist('selected_seats'):
             seat = Seat.query.filter_by(id=seat_id).first()
             seat.user_id = current_user.id
+            currently_booking.append(seat.seat_name)
             db.session.commit()
         all_seats = Seat.query.all()
+        just_booked = ', '.join(currently_booking)
+        flash(f"You have booked the seats {just_booked}.", category="success")
         return render_template("reservation.html", user=current_user, all_seats=all_seats)
         # take all seat id and set these seats seat.user_id to current_user.id
-        # db.session.commit()
+
 
 @views.route('/export2file', methods=['POST'])
 def export2file():

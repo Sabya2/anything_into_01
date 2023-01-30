@@ -1,21 +1,33 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
+{% block style %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+{% endblock %}
 {% block content%}
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-    {% for note in user.notes %}
-    <li class="list-group-item"> {{ note.data }}
-        <button type="button" class="close" onclick="deleteNote({{ note.id }})">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </li>
-    {% endfor %}
-</ul>
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
-    </div>
-</form>
+<table>
+    <tr>
+        <th>Name</th>
+        <td>{{user.firstname}} {{user.lastname}}</td>
+    </tr>
+    <tr>
+        <th>email</th>
+        <td>{{user.email}}</td>
+    </tr>
+    <tr>
+        <th>booked seats</th>
+        <td>{{booked_seats}}</td>
+    </tr>
+</table>
 {% endblock %}

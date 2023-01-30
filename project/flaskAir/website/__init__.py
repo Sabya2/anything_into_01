@@ -25,7 +25,6 @@ def create_admin():
 
 
 def create_seats():
-    print("create_seats")
     try:
         implemented_seats = db.session.execute(db.select(Seat)).scalars()
         if implemented_seats:
@@ -33,6 +32,7 @@ def create_seats():
             pass
 
     except NoResultFound:
+        print("creating seats")
         with open('chartIn.txt', 'r') as seats_file:
             seats_document = seats_file.readlines()
             seats = [line.split() for line in seats_document]
