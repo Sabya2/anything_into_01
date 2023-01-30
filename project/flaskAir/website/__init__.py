@@ -9,6 +9,13 @@ DB_NAME = "database.db"
 
 from .models import User, Seat
 
+def get_col_count():
+    with open('chartIn.txt', 'r') as seats_file:
+        seats_document = seats_file.readlines()
+        seats = [line.split() for line in seats_document]
+    return len(seats[0])
+
+n_cols = get_col_count()
 
 def create_admin():
     """
@@ -114,5 +121,9 @@ def create_app():
         db.create_all()
         create_seats()
         create_admin()
+
+    @app.context_processor
+    def inject_cols():
+      return dict(cols=n_cols)
 
     return app
