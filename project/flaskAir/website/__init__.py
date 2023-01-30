@@ -91,8 +91,6 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-    # TODO: implement the 4 standardusers?? pw would be written in plain...
-
     # create all necessary tables from the models within the app context,
     # create seats from layout and create admin account
     with app.app_context():
