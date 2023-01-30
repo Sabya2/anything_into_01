@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from sqlalchemy.exc import NoResultFound
 
-
+# initialise the database as an SQLAlchemy object
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
@@ -11,6 +11,9 @@ from .models import User, Seat
 
 
 def create_admin():
+    """
+    function checks for specified email and sets the attribute User.is_admin to true.
+    """
     print("create_admin")
     adminmail = 'lion@wolf.com'
     try:
@@ -26,6 +29,11 @@ def create_admin():
 
 
 def create_seats():
+    """
+    function check database for existing seats. If there are seats found,
+    the function passes. Else, the seatlayout is read from the specified
+    file and instances of the Seat class are stored in the database.
+    """
     try:
         implemented_seats = db.session.execute(db.select(Seat)).all()
         # print(implemented_seats)
@@ -63,6 +71,13 @@ def create_seats():
 
 
 def create_app():
+    """
+    This function creates a Flask app and handles its configuration.
+    Routes and functions are imported and Blueprints registered.
+    A Login-manager is created
+    All necessary tables are created and create_admin and create_seats are
+    executed.
+    """
     app = Flask(__name__)
     # set secret key
     app.config['SECRET_KEY'] = 'secretlol'
