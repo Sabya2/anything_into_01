@@ -1,40 +1,40 @@
-#Airline Reservation System flaskAir
+# Airline Reservation System flaskAir
 
 This project uses flask as a python framework to build a web-based booking system for airplane seats for learning purposes.
 
-##Installation
+## Installation
 These are the steps necessary to execute this project on your local machine. Based on your operating system you may need to change these commands.
 
-1. clone the github repository to your local machine
+1. clone the github repository to your local machine  
 `git clone https://github.com/Sabya2/anything_into_01.git`
 
-2. move into the directory
+2. move into the directory  
 `cd anything_into_01/project/flaskAir/`
 
-3. activate the virtual environment
+3. activate the virtual environment  
 `source venv/bin/activate`
 
-4. install the required packages
-`pip install -r requirements.txt`
+4. install the required packages  
+`pip install -r requirements.txt`  
 (note: on Mac you will need to use pip with the command `pip3`)
 
-5. execute `main.py` as a module
-`python -m main.py`
+5. execute `main.py` as a module  
+`python -m main.py`  
 (note: on Mac you will need to use python with the command `python3`)
 
-##Who did what
-###Marie Jamroszczyk:
-planing phase (exploration of flask and other posiblities)
+## Who did what
+### Marie Jamroszczyk:
+planing phase (exploration of flask and other posiblities)  
 help page - routing, functionality and html
 
-###Íñigo Vicente-Hernández:
-create seats - routing, functionality, html
+### Íñigo Vicente-Hernández:
+create seats - routing, functionality, html  
 database stuff
 
-###Lion Wolf:
+### Lion Wolf:
 Flask
-homepage - routing, functionality and html
-Login, Logout, Signup - routing, functionality and html
-Admin-interface - routing, functionality and html
-reservation page - routing, functionality and html
-css styling
+homepage - routing, functionality and html  
+Login, Logout, Signup - routing, functionality and html  
+Admin-interface - routing, functionality and html  
+reservation page - routing, functionality and html  
+css styling  
