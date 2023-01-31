@@ -26,7 +26,7 @@ def admin():
             flash("This area is for admins only.", category='error')
             return redirect(url_for('views.home'))
     if request.method == 'POST':
-        # functionality here?
+        # functionality here?####################################################################################
         flash("admin accessed with POST")
         return redirect(url_for('auth.admin'))
 
@@ -48,7 +48,7 @@ def login():
         else:
             flash('This user does not exist.', category='error')
 
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", user=current_user)  # renders log in page 
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -85,7 +85,7 @@ def signup():
             flash('Account created successfully.', category='success')
             return redirect(url_for('views.home')) # redirects the user to the homepage after creating the account
 
-    return render_template("signup.html", user=current_user)
+    return render_template("signup.html", user=current_user)  # renders sing up page 
 
 
 @auth.route('/logout')
@@ -93,4 +93,4 @@ def signup():
 def logout():  # to logout, using flask_login library
     flash('Logged out! Have a nice day :3', category='success')
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login')) #COMMENT HERE?

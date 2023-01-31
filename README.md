@@ -16,11 +16,11 @@ These are the steps necessary to execute this project on your local machine. Bas
 
 4. install the required packages  
 `pip install -r requirements.txt`  
-(note: on Mac you will need to use pip with the command `pip3`)
+(note: on Mac you will need to use `pip3` instead of `pip`)
 
 5. execute `main.py` as a module  
 `python -m main.py`  
-(note: on Mac you will need to use python with the command `python3`)
+(note: on Mac you will need to use `python3` instead of `python`)
 
 ## Who did what
 ### Marie Jamroszczyk:
@@ -28,11 +28,11 @@ planing phase (exploration of flask and other posiblities)
 help page - routing, functionality and html
 
 ### Íñigo Vicente-Hernández:
-create seats - routing, functionality, html  
-database stuff
+Seat generation, data input  
+database seats implementation - routing, functionality, html  
 
 ### Lion Wolf:
-Flask
+Flask  
 homepage - routing, functionality and html  
 Login, Logout, Signup - routing, functionality and html  
 Admin-interface - routing, functionality and html  
