@@ -11,18 +11,26 @@ from flask_login import login_user, login_required, logout_user, current_user
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/admin', methods=['GET', 'POST'], strict_slashes=False)
-@login_required
+@auth.route('/admin', methods=['GET'], strict_slashes=False)
+@login_required  # decorator: requires is_authenticated
 def admin():
+    """
+    route for the admin pages get requests, all functionality is handled in separate routes
+    security checks for admin status
+    """
+    # all get requests
     if request.method == 'GET':
+        # checks is_admin of current user
         if current_user.is_admin:
+            # renders admin page and passes all users free seats and all seat as objects
             return render_template('admin.html',
                                    user=current_user,
                                    all_users=User.query.all(),
                                    all_seats=Seat.query.all(),
                                    free_seats=Seat.query.filter_by(user_id=None).all())
-            # renders admin page and passes all users and all seat objects
+
         else:
+            # if not admin flash error msg and redirect to homepage
             flash("This area is for admins only.", category='error')
             return redirect(url_for('views.home'))
 
@@ -49,8 +57,12 @@ def login():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """
+    Signup page handling, post requests are used to validate the inputs
+    create new user based on input
+    """
     if request.method == 'POST':  # asking for the input information
-        email = request.form.get('email')
+        email = request.form.get('email')  # storing information of form with id/name=email into the var email
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
         password = request.form.get('password')
@@ -79,14 +91,16 @@ def signup():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created successfully.', category='success')
-            return redirect(url_for('views.home'))  # redirects the user to the homepage after creating the account
+            # redirects the user to the homepage after creating the account
+            return redirect(url_for('views.home'))
 
-    return render_template("signup.html", user=current_user)  # renders sing up page 
+    return render_template("signup.html", user=current_user)  # get request renders sing up page
 
 
 @auth.route('/logout')
 @login_required
-def logout():  # to logout, using flask_login library
+def logout():
+    """ logout route using flask-login """
     flash('Logged out! Have a nice day :3', category='success')
     logout_user()
     return redirect(url_for('auth.login'))
