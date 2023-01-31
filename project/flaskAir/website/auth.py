@@ -26,7 +26,7 @@ def admin():
             flash("This area is for admins only.", category='error')
             return redirect(url_for('views.home'))
     if request.method == 'POST':
-        # functionality here?####################################################################################
+        # functionality here?#####
         flash("admin accessed with POST")
         return redirect(url_for('auth.admin'))
 

@@ -49,10 +49,20 @@ def export2file():
         number_all_seats = len(all_seats)
         number_free_seats = len(free_seats)
 
+        list_available_seats = []
+        list_taken_seats = []
+        for seat in all_seats:
+            if seat.user_id == None:
+                list_available_seats.append(seat.seat_name)
+            else:
+                list_taken_seats.append(seat.seat_name)
+
         with open('./seatinfo.txt', 'a+') as seatinfo:
             timeinfo = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             if number_all_seats != 0:
-                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t seats: {number_all_seats}\t{round((number_free_seats / number_all_seats) * 100, 2)} % available\n")
+                seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t seats: {number_all_seats}\t{round((number_free_seats / number_all_seats) * 100, 2)} % available\n"
+                               f"all available seats: {list_available_seats}\n"
+                               f"all taken seats: {list_taken_seats}\n\n")
             else:
                 seatinfo.write(f"{timeinfo}:\t seats available: {number_free_seats}\t all seats: {number_all_seats}\n")
             flash('sucessfully written seatinfo', category='success')
