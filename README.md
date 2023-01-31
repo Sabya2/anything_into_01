@@ -32,7 +32,7 @@ Seat generation, data input
 database seats implementation - routing, functionality, html  
 
 ### Lion Wolf:
-Flask
+Flask  
 homepage - routing, functionality and html  
 Login, Logout, Signup - routing, functionality and html  
 Admin-interface - routing, functionality and html  
