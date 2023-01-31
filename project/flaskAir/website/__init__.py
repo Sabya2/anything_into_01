@@ -20,6 +20,7 @@ def get_col_count():
     return len(seats[0])
 
 
+# store number of columns in seat layout in variable n_cols
 n_cols = get_col_count()
 
 
@@ -30,11 +31,10 @@ def create_admin():
     print("create_admin")
     adminmail = 'lion@wolf.com'
     try:
+        # filter users by email and if the email is equal to adminmail, set is_admin attribute to true
         admin = db.session.execute(db.select(User).filter_by(email=adminmail)).scalar_one()
-        if admin:
-            # set is_admin flag to true if email == lion@wolf.com
+        if admin:  # if there is a user with the specified email
             admin.is_admin = True
-            # print("admin set")
             db.session.commit()
     except NoResultFound:
         print("no admin found.")
@@ -44,18 +44,19 @@ def create_admin():
 def create_seats():
     """
     function check database for existing seats. If there are seats found,
-    the function passes. Else, the seatlayout is read from the specified
+    the function passes. Else, the seat layout is read from the specified
     file and instances of the Seat class are stored in the database.
     """
     try:
+        # select all implemented seats and store them in implemented_seats
         implemented_seats = db.session.execute(db.select(Seat)).all()
-        # print(implemented_seats)
+
         if len(implemented_seats) > 0:
             print("passing the create_seats function")
             pass
         else:
-            raise NoResultFound
-    except NoResultFound:
+            raise NoResultFound  # raise error to create seats
+    except NoResultFound:  # error when no seats in database
         print("creating seats")
         with open('chartIn.txt', 'r') as seats_file:  # open the seat layout file
             seats_document = seats_file.readlines()  # read in line by line and store these in seat_document
@@ -65,11 +66,13 @@ def create_seats():
         n_rows = len(seats) - 1  # the length of seats is equivalent with the number of rows
 
         seatnames = []
+        # create list with all seat names from the row(i) and the letter
         for i in range(1, n_rows + 1):
             for letter in seats[0]:
                 seatnames.append(str(i) + letter)
 
         seatvalues = []
+        # create list of values for availability: 0 means seat is taken, None means seat is free
         for row in seats[1:]:
             for seat in row[1:]:
                 if seat == 'X':
@@ -77,10 +80,12 @@ def create_seats():
                 else:
                     seatvalues.append(None)
 
+        # from the list with seat names and the list of availability create new seats
+        # with the specified name and availability
         for i in range(len(seatnames)):
             new_seat = Seat(seat_name=seatnames[i], user_id=seatvalues[i])
             db.session.add(new_seat)
-        db.session.commit()
+        db.session.commit()  # commit changes to database
 
 
 def create_app():
@@ -128,8 +133,9 @@ def create_app():
         create_seats()
         create_admin()
 
+    # functionality to make the number of columns accessible in the app context
     @app.context_processor
     def inject_cols():
-      return dict(cols=n_cols)
+        return dict(cols=n_cols)
 
     return app
