@@ -28,8 +28,8 @@ planing phase (exploration of flask and other posiblities)
 help page - routing, functionality and html
 
 ### Íñigo Vicente-Hernández:
-create seats - routing, functionality, html  
-database stuff
+Seat generation, data input
+database seats implementation - routing, functionality, html  
 
 ### Lion Wolf:
 Flask
