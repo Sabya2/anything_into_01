@@ -1,7 +1,9 @@
 from . import db  # import of our SQLAlchemy object
 from flask_login import UserMixin
 
-
+"""
+classes inherit from sqlalchemy (db.Model) and from flask-login (UserMixin)
+"""
 class User(db.Model, UserMixin):
     """
     Define class for users that can log in and book seats
