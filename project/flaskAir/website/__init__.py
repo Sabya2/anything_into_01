@@ -9,13 +9,19 @@ DB_NAME = "database.db"
 
 from .models import User, Seat
 
+
 def get_col_count():
+    """
+    opens the seat layout file and extracts and returns the number of columns.
+    """
     with open('chartIn.txt', 'r') as seats_file:
         seats_document = seats_file.readlines()
         seats = [line.split() for line in seats_document]
     return len(seats[0])
 
+
 n_cols = get_col_count()
+
 
 def create_admin():
     """
@@ -51,12 +57,12 @@ def create_seats():
             raise NoResultFound
     except NoResultFound:
         print("creating seats")
-        with open('chartIn.txt', 'r') as seats_file:
-            seats_document = seats_file.readlines()
-            seats = [line.split() for line in seats_document]
+        with open('chartIn.txt', 'r') as seats_file:  # open the seat layout file
+            seats_document = seats_file.readlines()  # read in line by line and store these in seat_document
+            seats = [line.split() for line in seats_document]  # split the lines into separate lists
 
-        n_cols = len(seats[0])
-        n_rows = len(seats) - 1
+        n_cols = len(seats[0])  # the length of the first line in our seat layout is equivalent to the number of columns
+        n_rows = len(seats) - 1  # the length of seats is equivalent with the number of rows
 
         seatnames = []
         for i in range(1, n_rows + 1):

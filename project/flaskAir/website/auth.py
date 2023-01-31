@@ -25,10 +25,6 @@ def admin():
         else:
             flash("This area is for admins only.", category='error')
             return redirect(url_for('views.home'))
-    if request.method == 'POST':
-        # functionality here?#####
-        flash("admin accessed with POST")
-        return redirect(url_for('auth.admin'))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -63,11 +59,11 @@ def signup():
         user = User.query.filter_by(email=email).first()  # retrieve users with this email
         if user:  # if email already registered
             flash('This email is already registered.', category='error')
-        elif len(email) < 4: # checking the length of the email
+        elif len(email) < 4:  # checking the length of the email
             flash('email must be longer than 3 characters.', category='error')
-        elif len(firstname) < 2: # checking the length of the firstname
+        elif len(firstname) < 2:  # checking the length of the firstname
             flash('First name must be longer than 1 character.', category='error')
-        elif len(lastname) < 2:  # checking the length of the lastname
+        elif len(lastname) < 2:   # checking the length of the lastname
             flash('Last name must be longer than 1 character.', category='error')
         elif len(password) < 7:  # checking the length of the password
             flash('Passwords must be at least 7 characters.', category='error')
@@ -83,7 +79,7 @@ def signup():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created successfully.', category='success')
-            return redirect(url_for('views.home')) # redirects the user to the homepage after creating the account
+            return redirect(url_for('views.home'))  # redirects the user to the homepage after creating the account
 
     return render_template("signup.html", user=current_user)  # renders sing up page 
 
@@ -93,4 +89,4 @@ def signup():
 def logout():  # to logout, using flask_login library
     flash('Logged out! Have a nice day :3', category='success')
     logout_user()
-    return redirect(url_for('auth.login')) #COMMENT HERE?
+    return redirect(url_for('auth.login'))

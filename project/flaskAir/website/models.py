@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean(False))
 
+
 class Seat(db.Model):
     """
     Define class for Seats to be booked.
